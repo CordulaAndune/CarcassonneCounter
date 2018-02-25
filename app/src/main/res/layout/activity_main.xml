@@ -50,6 +50,12 @@
                 android:text="@string/city_and_shields"/>
 
             <Button
+                android:id="@+id/p1_farmer_button"
+                style="@style/MainButtons"
+                android:text="Farmer (3x)"
+                android:visibility="invisible"/>
+
+            <Button
                 android:id="@+id/p1_cloister_button"
                 style="@style/MainButtons"
                 android:text="@string/cloister"/>
@@ -90,6 +96,12 @@
                 android:id="@+id/p2_city_button"
                 style="@style/MainButtons"
                 android:text="@string/city_and_shields"/>
+
+            <Button
+                android:id="@+id/p2_farmer_button"
+                style="@style/MainButtons"
+                android:text="Farmer (3x)"
+                android:visibility="invisible"/>
 
             <Button
                 android:id="@+id/p2_cloister_button"

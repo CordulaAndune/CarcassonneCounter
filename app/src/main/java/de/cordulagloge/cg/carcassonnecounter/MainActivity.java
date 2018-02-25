@@ -35,40 +35,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         isFinalScoring = false;
 
         // Buttons Player 1
-        Button p1RoadButton = findViewById(R.id.p1_road_button);
+        final Button p1RoadButton = findViewById(R.id.p1_road_button);
         p1RoadButton.setOnClickListener(this);
 
-        Button p1CityButton = findViewById(R.id.p1_city_button);
+        final Button p1CityButton = findViewById(R.id.p1_city_button);
         p1CityButton.setOnClickListener(this);
 
-        Button p1CloisterButton = findViewById(R.id.p1_cloister_button);
+        final Button p1CloisterButton = findViewById(R.id.p1_cloister_button);
         p1CloisterButton.setOnClickListener(this);
 
-        // Buttons P2ayer 2
-        Button p2RoadButton = findViewById(R.id.p2_road_button);
+        final Button p1FarmerButton = findViewById(R.id.p1_farmer_button);
+        p1FarmerButton.setOnClickListener(this);
+
+        // Buttons Player 2
+        final Button p2RoadButton = findViewById(R.id.p2_road_button);
         p2RoadButton.setOnClickListener(this);
 
-        Button p2CityButton = findViewById(R.id.p2_city_button);
+        final Button p2CityButton = findViewById(R.id.p2_city_button);
         p2CityButton.setOnClickListener(this);
 
-        Button p2CloisterButton = findViewById(R.id.p2_cloister_button);
+        final Button p2CloisterButton = findViewById(R.id.p2_cloister_button);
         p2CloisterButton.setOnClickListener(this);
 
+        final Button p2FarmerButton = findViewById(R.id.p2_farmer_button);
+        p2FarmerButton.setOnClickListener(this);
+
+        // Set onclicklistener for final Scoring button
+        Button finalScoringButton = findViewById(R.id.final_scoring);
+        finalScoringButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isFinalScoring = true;
+                // make farmer button visible
+                p1FarmerButton.setVisibility(View.VISIBLE);
+                p2FarmerButton.setVisibility(View.VISIBLE);
+                // change text of city and cloister buttons
+                p1CityButton.setText(R.string.city_and_shields_final);
+                p2CityButton.setText(R.string.city_and_shields_final);
+                p1CloisterButton.setText(R.string.cloister_final);
+                p2CloisterButton.setText(R.string.cloister_final);
+            }
+        });
     }
 
     @Override
     public void onClick(View view){
-        int valueRoad, valueCity, valueCloister, valueGrass;
+        int valueRoad, valueCity, valueCloister, valueFarmer;
         if (!isFinalScoring) {
             valueRoad = 1;
             valueCity = 2;
             valueCloister = 9;
+            valueFarmer = 0;
         }
         else {
             valueRoad = 1;
             valueCity = 1;
             valueCloister = 1;
-            valueGrass = 3;
+            valueFarmer = 3;
         }
         switch (view.getId()){
             // Player 1 scores
@@ -89,6 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 displayScore(p1Score, p1ScoreTextView);
                 break;
+            case R.id.p1_farmer_button:
+                p1Score += setScore(p1Input,valueFarmer);
+                displayScore(p1Score,p1ScoreTextView);
+                break;
             // Player 2 scores
             case R.id.p2_road_button:
                 p2Score += setScore(p2Input, valueRoad);
@@ -106,6 +133,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     p2Score += valueCloister;
                 }
                 displayScore(p2Score, p2ScoreTextView);
+                break;
+            case R.id.p2_farmer_button:
+                p2Score += setScore(p2Input,valueFarmer);
+                displayScore(p2Score,p2ScoreTextView);
                 break;
         }
     }

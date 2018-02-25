@@ -6,4 +6,6 @@
     <string name="road">Road (x1)</string>
     <string name="cloister">Cloister(+9)</string>
     <string name="city_and_shields">City and Shields (2x)</string>
+    <string name="city_and_shields_final">City and Shields (1x)</string>
+    <string name="cloister_final">Cloister(1x)</string>
 </resources>
