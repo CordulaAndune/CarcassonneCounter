@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="scoreTextSize">48sp</dimen>
+    <dimen name="outer_padding">16dp</dimen>
+    <dimen name="buttonTextSize">16sp</dimen>
+</resources>

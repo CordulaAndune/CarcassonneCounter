@@ -3,27 +3,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:gravity="center_horizontal"
     tools:context="de.cordulagloge.cg.carcassonnecounter.MainActivity">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal">
+        android:id="@+id/score_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/outer_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Player 1" />
+
+            <TextView
+                android:id="@+id/p1_score"
+                style="@style/ScoreStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12" />
+
+            <EditText
+                android:id="@+id/p1_input"
+                style="@style/TilesScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/p1_road_button"
+                style="@style/MainButtons"
+                android:text="@string/road"/>
+
+            <Button
+                android:id="@+id/p1_city_button"
+                style="@style/MainButtons"
+                android:text="@string/city_and_shields"/>
+
+            <Button
+                android:id="@+id/p1_cloister_button"
+                style="@style/MainButtons"
+                android:text="@string/cloister"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/outer_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Player 2" />
+
+            <TextView
+                android:id="@+id/p2_score"
+                style="@style/ScoreStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12" />
+
+            <EditText
+                android:id="@+id/p2_input"
+                style="@style/TilesScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/p2_road_button"
+                style="@style/MainButtons"
+                android:text="@string/road"/>
+
+            <Button
+                android:id="@+id/p2_city_button"
+                style="@style/MainButtons"
+                android:text="@string/city_and_shields"/>
+
+            <Button
+                android:id="@+id/p2_cloister_button"
+                style="@style/MainButtons"
+                android:text="@string/cloister"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal">
+    <Button
+        android:id="@+id/final_scoring"
+        style="@style/MainButtons"
+        android:layout_below="@id/score_layout"
+        android:layout_centerHorizontal="true"
+        android:text="@string/final_scoring" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/reset"
+        style="@style/MainButtons"
+        android:layout_below="@id/final_scoring"
+        android:layout_centerHorizontal="true"
+        android:text="@string/reset" />
+
+    <Button
+        android:id="@+id/undo"
+        style="@style/MainButtons"
+        android:layout_below="@id/reset"
+        android:layout_centerHorizontal="true"
+        android:text="@string/undo" />
 </RelativeLayout>

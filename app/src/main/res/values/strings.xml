@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CarcassonneCounter</string>
+    <string name="final_scoring">Final Scoring</string>
+    <string name="reset">Reset</string>
+    <string name="undo">Undo</string>
+    <string name="road">Road (x1)</string>
+    <string name="cloister">Cloister(+9)</string>
+    <string name="city_and_shields">City and Shields (2x)</string>
 </resources>
