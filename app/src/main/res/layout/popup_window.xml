@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/outer_padding"
+    android:background="@drawable/popup_background">
+
+    <TextView
+        android:id="@+id/popup_description"
+        style="@style/MainButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sfjioafnsdifskfsdlf"
+        android:layout_marginBottom="@dimen/outer_padding"/>
+
+    <EditText
+        android:id="@+id/popup_number_of_tiles"
+        style="@style/TilesScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popup_description" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popup_number_of_tiles"
+        android:layout_marginTop="@dimen/outer_padding">
+        <Button
+            android:id="@+id/cancel_button"
+            style="@style/MainButtons"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/popup_ok_button"
+            style="@style/MainButtons"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/ok" />
+    </LinearLayout>
+
+</RelativeLayout>

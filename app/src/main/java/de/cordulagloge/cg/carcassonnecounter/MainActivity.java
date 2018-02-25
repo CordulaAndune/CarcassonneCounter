@@ -1,11 +1,18 @@
 package de.cordulagloge.cg.carcassonnecounter;
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -14,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView p1ScoreTextView, p2ScoreTextView;
     private int p1Score, p2Score;
     private Boolean isFinalScoring;
+    private RelativeLayout rootLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         p2Input = findViewById(R.id.p2_input);
         p1ScoreTextView = findViewById(R.id.p1_score);
         p2ScoreTextView = findViewById(R.id.p2_score);
+        rootLayout = findViewById(R.id.root_layout);
 
         //set Values
         p1Score = 0;
@@ -80,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view){
-        int valueRoad, valueCity, valueCloister, valueFarmer;
+        /*int valueRoad, valueCity, valueCloister, valueFarmer;
         if (!isFinalScoring) {
             valueRoad = 1;
             valueCity = 2;
@@ -92,8 +101,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             valueCity = 1;
             valueCloister = 1;
             valueFarmer = 3;
-        }
-        switch (view.getId()){
+        }*/
+        LayoutInflater popupInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View popupWindowLayout = popupInflater.inflate(R.layout.popup_window, null);
+        final PopupWindow popupWindow = new PopupWindow(popupWindowLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        Button cancelButton = popupWindowLayout.findViewById(R.id.cancel_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+        popupWindow.showAtLocation(rootLayout, Gravity.CENTER,0,0);
+
+        /*switch (view.getId()){
             // Player 1 scores
             case R.id.p1_road_button:
                 p1Score += setScore(p1Input, valueRoad);
@@ -138,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 p2Score += setScore(p2Input,valueFarmer);
                 displayScore(p2Score,p2ScoreTextView);
                 break;
-        }
+        }*/
     }
 
     private int setScore(EditText playerInput, int value){
