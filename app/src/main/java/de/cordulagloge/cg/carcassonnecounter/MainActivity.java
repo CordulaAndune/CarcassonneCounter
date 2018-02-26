@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static int score;
     private EditText p1Input, p2Input;
     private TextView p1ScoreTextView, p2ScoreTextView;
     private int p1Score, p2Score;
@@ -109,17 +108,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             // Player 1 scores
             case R.id.p1_road_button:
-                p1Score = setPopUpWindow(p1ScoreTextView, p1Score, valueRoad);
-                Log.i("in p1 button", String.valueOf(p1Score));
+                setPopUpWindow(p1ScoreTextView, p1Score, valueRoad);
                 break;
             case R.id.p1_city_button:
                 setPopUpWindow(p1ScoreTextView, p1Score, valueCity);
-                p1Score += score;
                 break;
             case R.id.p1_cloister_button:
                 if (isFinalScoring) {
                     setPopUpWindow(p1ScoreTextView, p1Score, valueCloister);
-                    p1Score += score;
                 } else {
                     p1Score += valueCloister;
                     displayScore(p1Score, p1ScoreTextView);
@@ -127,21 +123,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.p1_farmer_button:
                 setPopUpWindow(p1ScoreTextView, p1Score, valueFarmer);
-                p1Score += score;
                 break;
             // Player 2 scores
             case R.id.p2_road_button:
                 setPopUpWindow(p2ScoreTextView, p2Score, valueRoad);
-                p2Score += score;
                 break;
             case R.id.p2_city_button:
                 setPopUpWindow(p2ScoreTextView, p2Score, valueCity);
-                p2Score += score;
                 break;
             case R.id.p2_cloister_button:
                 if (isFinalScoring) {
                     setPopUpWindow(p2ScoreTextView, p2Score, valueCloister);
-                    p2Score += score;
                 } else {
                     p2Score += valueCloister;
                     displayScore(p2Score, p2ScoreTextView);
@@ -149,7 +141,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.p2_farmer_button:
                 setPopUpWindow(p2ScoreTextView, p2Score, valueFarmer);
-                p2Score += score;
                 break;
         }
     }
@@ -157,8 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      *
      */
-    private int setPopUpWindow(final TextView currentPlayer, final int currentScore, final int currentValue) {
-        MainActivity.score = 0;
+    private void setPopUpWindow(final TextView currentPlayer, final int currentScore, final int currentValue) {
         LayoutInflater popupTilesInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View popupTilesLayout = popupTilesInflater.inflate(R.layout.popup_window, null);
         final PopupWindow popupTilesWindow = new PopupWindow(popupTilesLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -173,10 +163,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String tiles = userInput.getText().toString();
                 if (!tiles.isEmpty()) {
                     int numberOfTiles = Integer.parseInt(tiles);
-                    MainActivity.score = setScore(currentScore, numberOfTiles, currentValue);
-                    String temp = String.valueOf(MainActivity.score);
-                    Log.i("in ok", temp);
-                    displayScore(MainActivity.score, currentPlayer);
+                    int score = setScore(currentScore, numberOfTiles, currentValue);
+                    if (currentPlayer == p1ScoreTextView){
+                        p1Score = score;
+                    }
+                    else if(currentPlayer == p2ScoreTextView){
+                        p2Score = score;
+                    }
+                    displayScore(score, currentPlayer);
                 }
                 popupTilesWindow.dismiss();
             }
@@ -192,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         popupTilesWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0);
-        return MainActivity.score;
     }
 
     private int setScore(int currentScore, int tiles, int value) {
