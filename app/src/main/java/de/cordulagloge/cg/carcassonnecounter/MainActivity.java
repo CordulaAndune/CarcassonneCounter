@@ -109,91 +109,90 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             // Player 1 scores
             case R.id.p1_road_button:
-                setPopUpWindow(p1ScoreTextView, p1Score, valueRoad);
-                p1Score += score;
+                p1Score = setPopUpWindow(p1ScoreTextView, p1Score, valueRoad);
+                Log.i("in p1 button", String.valueOf(p1Score));
                 break;
-            /*case R.id.p1_city_button:
-                setPopUpWindow();
-                p1Score += setScore(numberOfTiles, valueCity);
-                displayScore(p1Score, p1ScoreTextView);
+            case R.id.p1_city_button:
+                setPopUpWindow(p1ScoreTextView, p1Score, valueCity);
+                p1Score += score;
                 break;
             case R.id.p1_cloister_button:
                 if (isFinalScoring) {
-                    setPopUpWindow();
-                    p1Score += setScore(numberOfTiles, valueCloister);
+                    setPopUpWindow(p1ScoreTextView, p1Score, valueCloister);
+                    p1Score += score;
                 } else {
                     p1Score += valueCloister;
+                    displayScore(p1Score, p1ScoreTextView);
                 }
-                displayScore(p1Score, p1ScoreTextView);
                 break;
             case R.id.p1_farmer_button:
-                setPopUpWindow();
-                p1Score += setScore(numberOfTiles, valueFarmer);
-                displayScore(p1Score, p1ScoreTextView);
+                setPopUpWindow(p1ScoreTextView, p1Score, valueFarmer);
+                p1Score += score;
                 break;
             // Player 2 scores
             case R.id.p2_road_button:
-                setPopUpWindow();
-                p2Score += setScore(numberOfTiles, valueRoad);
-                displayScore(p2Score, p2ScoreTextView);
+                setPopUpWindow(p2ScoreTextView, p2Score, valueRoad);
+                p2Score += score;
                 break;
             case R.id.p2_city_button:
-                setPopUpWindow();
-                p2Score += setScore(numberOfTiles, valueCity);
-                displayScore(p2Score, p2ScoreTextView);
+                setPopUpWindow(p2ScoreTextView, p2Score, valueCity);
+                p2Score += score;
                 break;
             case R.id.p2_cloister_button:
                 if (isFinalScoring) {
-                    setPopUpWindow();
-                    p2Score += setScore(numberOfTiles, valueCloister);
+                    setPopUpWindow(p2ScoreTextView, p2Score, valueCloister);
+                    p2Score += score;
                 } else {
                     p2Score += valueCloister;
+                    displayScore(p2Score, p2ScoreTextView);
                 }
-                displayScore(p2Score, p2ScoreTextView);
                 break;
             case R.id.p2_farmer_button:
-                setPopUpWindow();
-                p2Score += setScore(numberOfTiles, valueFarmer);
-                displayScore(p2Score, p2ScoreTextView);
-                break;*/
+                setPopUpWindow(p2ScoreTextView, p2Score, valueFarmer);
+                p2Score += score;
+                break;
         }
     }
 
     /**
-     * based on https://www.mkyong.com/android/android-prompt-user-input-dialog-example/ (2018-02-26)
+     *
      */
-    private void setPopUpWindow(final TextView currentPlayer, final int currentScore, final int currentValue) {
-        LayoutInflater popupInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View alertDialogLayout = popupInflater.inflate(R.layout.popup_window, null);
-        AlertDialog.Builder alertDialogWindow = new AlertDialog.Builder(this);
-        alertDialogWindow.setView(alertDialogLayout);
+    private int setPopUpWindow(final TextView currentPlayer, final int currentScore, final int currentValue) {
+        MainActivity.score = 0;
+        LayoutInflater popupTilesInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View popupTilesLayout = popupTilesInflater.inflate(R.layout.popup_window, null);
+        final PopupWindow popupTilesWindow = new PopupWindow(popupTilesLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        final EditText userInput = (EditText) popupTilesLayout.findViewById(R.id.popup_number_of_tiles);
 
-        final EditText userInput = (EditText) alertDialogLayout.findViewById(R.id.popup_number_of_tiles);
-        // set dialog message
-        alertDialogWindow
-                .setCancelable(false)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // get Input = number of tiles
-                                String tiles = userInput.getText().toString();
-                                int numberOfTiles = Integer.parseInt(tiles);
-                                MainActivity.score = setScore(currentScore, numberOfTiles, currentValue);
-                                displayScore(MainActivity.score, currentPlayer);
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        });
+        // set ok Button onClickListener
+        Button okButton = popupTilesLayout.findViewById(R.id.popup_ok_button);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get Input = number of tiles
+                String tiles = userInput.getText().toString();
+                if (!tiles.isEmpty()) {
+                    int numberOfTiles = Integer.parseInt(tiles);
+                    MainActivity.score = setScore(currentScore, numberOfTiles, currentValue);
+                    String temp = String.valueOf(MainActivity.score);
+                    Log.i("in ok", temp);
+                    displayScore(MainActivity.score, currentPlayer);
+                }
+                popupTilesWindow.dismiss();
+            }
+        });
 
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogWindow.create();
-
-        // show it
-        alertDialog.show();
+        // Set cancel button onCLickListener
+        Button cancelButton = popupTilesLayout.findViewById(R.id.popup_cancel_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get Input = number of tiles
+                popupTilesWindow.dismiss();
+            }
+        });
+        popupTilesWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0);
+        return MainActivity.score;
     }
 
     private int setScore(int currentScore, int tiles, int value) {
