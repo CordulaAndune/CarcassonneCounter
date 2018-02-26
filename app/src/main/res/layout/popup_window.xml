@@ -26,7 +26,7 @@
         android:layout_below="@id/popup_number_of_tiles"
         android:layout_marginTop="@dimen/outer_padding">
         <Button
-            android:id="@+id/cancel_button"
+            android:id="@+id/popup_cancel_button"
             style="@style/MainButtons"
             android:layout_width="0dp"
             android:layout_weight="1"

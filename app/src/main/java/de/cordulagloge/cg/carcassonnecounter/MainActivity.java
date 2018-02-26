@@ -1,7 +1,9 @@
 package de.cordulagloge.cg.carcassonnecounter;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static int score;
     private EditText p1Input, p2Input;
     private TextView p1ScoreTextView, p2ScoreTextView;
     private int p1Score, p2Score;
@@ -88,90 +91,118 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View view){
-        /*int valueRoad, valueCity, valueCloister, valueFarmer;
+    public void onClick(View view) {
+        String stringTiles;
+        int valueRoad, valueCity, valueCloister, valueFarmer;
         if (!isFinalScoring) {
             valueRoad = 1;
             valueCity = 2;
             valueCloister = 9;
             valueFarmer = 0;
-        }
-        else {
+        } else {
             valueRoad = 1;
             valueCity = 1;
             valueCloister = 1;
             valueFarmer = 3;
-        }*/
-        LayoutInflater popupInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View popupWindowLayout = popupInflater.inflate(R.layout.popup_window, null);
-        final PopupWindow popupWindow = new PopupWindow(popupWindowLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        Button cancelButton = popupWindowLayout.findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
-        });
-        popupWindow.showAtLocation(rootLayout, Gravity.CENTER,0,0);
-
-        /*switch (view.getId()){
+        }
+        // switch between the different buttons
+        switch (view.getId()) {
             // Player 1 scores
             case R.id.p1_road_button:
-                p1Score += setScore(p1Input, valueRoad);
-                displayScore(p1Score, p1ScoreTextView);
+                setPopUpWindow(p1ScoreTextView, p1Score, valueRoad);
+                p1Score += score;
                 break;
-            case R.id.p1_city_button:
-                p1Score += setScore(p1Input,valueCity);
+            /*case R.id.p1_city_button:
+                setPopUpWindow();
+                p1Score += setScore(numberOfTiles, valueCity);
                 displayScore(p1Score, p1ScoreTextView);
                 break;
             case R.id.p1_cloister_button:
-                if (isFinalScoring){
-                    p1Score += setScore(p1Input, valueCloister);
-                }
-                else {
+                if (isFinalScoring) {
+                    setPopUpWindow();
+                    p1Score += setScore(numberOfTiles, valueCloister);
+                } else {
                     p1Score += valueCloister;
                 }
                 displayScore(p1Score, p1ScoreTextView);
                 break;
             case R.id.p1_farmer_button:
-                p1Score += setScore(p1Input,valueFarmer);
-                displayScore(p1Score,p1ScoreTextView);
+                setPopUpWindow();
+                p1Score += setScore(numberOfTiles, valueFarmer);
+                displayScore(p1Score, p1ScoreTextView);
                 break;
             // Player 2 scores
             case R.id.p2_road_button:
-                p2Score += setScore(p2Input, valueRoad);
+                setPopUpWindow();
+                p2Score += setScore(numberOfTiles, valueRoad);
                 displayScore(p2Score, p2ScoreTextView);
                 break;
             case R.id.p2_city_button:
-                p2Score += setScore(p2Input,valueCity);
+                setPopUpWindow();
+                p2Score += setScore(numberOfTiles, valueCity);
                 displayScore(p2Score, p2ScoreTextView);
                 break;
             case R.id.p2_cloister_button:
-                if (isFinalScoring){
-                    p2Score += setScore(p2Input, valueCloister);
-                }
-                else {
+                if (isFinalScoring) {
+                    setPopUpWindow();
+                    p2Score += setScore(numberOfTiles, valueCloister);
+                } else {
                     p2Score += valueCloister;
                 }
                 displayScore(p2Score, p2ScoreTextView);
                 break;
             case R.id.p2_farmer_button:
-                p2Score += setScore(p2Input,valueFarmer);
-                displayScore(p2Score,p2ScoreTextView);
-                break;
-        }*/
-    }
-
-    private int setScore(EditText playerInput, int value){
-        String stringTiles = playerInput.getText().toString();
-        if (!stringTiles.isEmpty()){
-        int numberTiles = Integer.parseInt(stringTiles);
-        return numberTiles * value;
+                setPopUpWindow();
+                p2Score += setScore(numberOfTiles, valueFarmer);
+                displayScore(p2Score, p2ScoreTextView);
+                break;*/
         }
-        else return 0;
     }
 
-    private void displayScore(int score, TextView scoreView){
+    /**
+     * based on https://www.mkyong.com/android/android-prompt-user-input-dialog-example/ (2018-02-26)
+     */
+    private void setPopUpWindow(final TextView currentPlayer, final int currentScore, final int currentValue) {
+        LayoutInflater popupInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View alertDialogLayout = popupInflater.inflate(R.layout.popup_window, null);
+        AlertDialog.Builder alertDialogWindow = new AlertDialog.Builder(this);
+        alertDialogWindow.setView(alertDialogLayout);
+
+        final EditText userInput = (EditText) alertDialogLayout.findViewById(R.id.popup_number_of_tiles);
+        // set dialog message
+        alertDialogWindow
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get Input = number of tiles
+                                String tiles = userInput.getText().toString();
+                                int numberOfTiles = Integer.parseInt(tiles);
+                                MainActivity.score = setScore(currentScore, numberOfTiles, currentValue);
+                                displayScore(MainActivity.score, currentPlayer);
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogWindow.create();
+
+        // show it
+        alertDialog.show();
+    }
+
+    private int setScore(int currentScore, int tiles, int value) {
+        if (tiles >= 1) {
+            return currentScore + (tiles * value);
+        } else return currentScore;
+    }
+
+    private void displayScore(int score, TextView scoreView) {
         scoreView.setText(String.valueOf(score));
     }
 }
