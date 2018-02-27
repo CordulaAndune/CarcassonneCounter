@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button finalScoringButton;
     private int p1Score, p2Score;
     private int[] beforeFinalScore;
+    private int[] formerScores;
     private Boolean isFinalScoring;
     private RelativeLayout rootLayout;
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         isFinalScoring = false;
         beforeFinalScore = new int[2];
+        formerScores = new int[2];
 
         // Buttons Player 1
         p1RoadButton = findViewById(R.id.p1_road_button);
@@ -99,6 +102,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 resetScore();
             }
         });
+
+        Button undoButton = findViewById(R.id.undo);
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                undoScore();
+            }
+        });
     }
 
     /**
@@ -133,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (isFinalScoring) {
                     setPopUpWindow(p1ScoreTextView, p1Score, valueCloister);
                 } else {
-                    p1Score += valueCloister;
+                    p1Score = setScore(p1Score, 1, valueCloister);
                     displayScore(p1Score, p1ScoreTextView);
                 }
                 break;
@@ -151,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (isFinalScoring) {
                     setPopUpWindow(p2ScoreTextView, p2Score, valueCloister);
                 } else {
-                    p2Score += valueCloister;
+                    p2Score = setScore(p2Score, 1, valueCloister);
                     displayScore(p2Score, p2ScoreTextView);
                 }
                 break;
@@ -257,6 +268,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @return new score
      */
     private int setScore(int currentScore, int tiles, int value) {
+        formerScores[0] = p1Score;
+        formerScores[1] = p2Score;
         if (tiles >= 1) {
             return currentScore + (tiles * value);
         } else return currentScore;
@@ -284,6 +297,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (isFinalScoring) {
             cancelFinalScoring(true);
         }
+    }
+
+    /**
+     * Undo last scoring step
+     */
+    private void undoScore() {
+        p1Score = formerScores[0];
+        p2Score = formerScores[1];
+        displayScore(p1Score, p1ScoreTextView);
+        displayScore(p2Score, p2ScoreTextView);
     }
 
     /**

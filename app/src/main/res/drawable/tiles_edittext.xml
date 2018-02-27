@@ -6,4 +6,9 @@
         android:color="@color/colorPrimaryDark" />
     <corners android:radius="5dp" />
     <solid android:color="#99FFFFFF" />
+    <padding
+        android:bottom="@dimen/buttonPadding"
+        android:left="@dimen/buttonPadding"
+        android:right="@dimen/buttonPadding"
+        android:top="@dimen/buttonPadding" />
 </shape>
