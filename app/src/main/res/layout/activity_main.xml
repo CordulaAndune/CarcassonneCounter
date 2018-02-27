@@ -12,6 +12,7 @@
         android:id="@+id/score_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/outer_padding"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -109,14 +110,16 @@
     <Button
         android:id="@+id/reset"
         style="@style/MainButtons"
-        android:layout_below="@id/final_scoring"
+        android:layout_below="@id/score_layout"
+        android:layout_toRightOf="@id/final_scoring"
         android:layout_centerHorizontal="true"
         android:text="@string/reset" />
 
     <Button
         android:id="@+id/undo"
         style="@style/MainButtons"
-        android:layout_below="@id/reset"
+        android:layout_below="@id/score_layout"
+        android:layout_toLeftOf="@id/final_scoring"
         android:layout_centerHorizontal="true"
         android:text="@string/undo" />
 </RelativeLayout>
