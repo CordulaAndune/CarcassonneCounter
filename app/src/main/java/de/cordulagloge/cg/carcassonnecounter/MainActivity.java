@@ -19,8 +19,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText p1Input, p2Input;
     private TextView p1ScoreTextView, p2ScoreTextView;
+    private Button p1RoadButton, p1CityButton, p1CloisterButton, p1FarmerButton;
+    private Button p2RoadButton, p2CityButton, p2CloisterButton, p2FarmerButton;
     private int p1Score, p2Score;
     private Boolean isFinalScoring;
     private RelativeLayout rootLayout;
@@ -31,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // get global variables
-        p1Input = findViewById(R.id.p1_input);
-        p2Input = findViewById(R.id.p2_input);
         p1ScoreTextView = findViewById(R.id.p1_score);
         p2ScoreTextView = findViewById(R.id.p2_score);
         rootLayout = findViewById(R.id.root_layout);
@@ -46,29 +45,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         isFinalScoring = false;
 
         // Buttons Player 1
-        final Button p1RoadButton = findViewById(R.id.p1_road_button);
+        p1RoadButton = findViewById(R.id.p1_road_button);
         p1RoadButton.setOnClickListener(this);
 
-        final Button p1CityButton = findViewById(R.id.p1_city_button);
+        p1CityButton = findViewById(R.id.p1_city_button);
         p1CityButton.setOnClickListener(this);
 
-        final Button p1CloisterButton = findViewById(R.id.p1_cloister_button);
+        p1CloisterButton = findViewById(R.id.p1_cloister_button);
         p1CloisterButton.setOnClickListener(this);
 
-        final Button p1FarmerButton = findViewById(R.id.p1_farmer_button);
+        p1FarmerButton = findViewById(R.id.p1_farmer_button);
         p1FarmerButton.setOnClickListener(this);
 
         // Buttons Player 2
-        final Button p2RoadButton = findViewById(R.id.p2_road_button);
+        p2RoadButton = findViewById(R.id.p2_road_button);
         p2RoadButton.setOnClickListener(this);
 
-        final Button p2CityButton = findViewById(R.id.p2_city_button);
+        p2CityButton = findViewById(R.id.p2_city_button);
         p2CityButton.setOnClickListener(this);
 
-        final Button p2CloisterButton = findViewById(R.id.p2_cloister_button);
+        p2CloisterButton = findViewById(R.id.p2_cloister_button);
         p2CloisterButton.setOnClickListener(this);
 
-        final Button p2FarmerButton = findViewById(R.id.p2_farmer_button);
+        p2FarmerButton = findViewById(R.id.p2_farmer_button);
         p2FarmerButton.setOnClickListener(this);
 
         // Set onclicklistener for final Scoring button
@@ -76,22 +75,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         finalScoringButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isFinalScoring = true;
-                // make farmer button visible
-                p1FarmerButton.setVisibility(View.VISIBLE);
-                p2FarmerButton.setVisibility(View.VISIBLE);
-                // change text of city and cloister buttons
-                p1CityButton.setText(R.string.city_and_shields_final);
-                p2CityButton.setText(R.string.city_and_shields_final);
-                p1CloisterButton.setText(R.string.cloister_final);
-                p2CloisterButton.setText(R.string.cloister_final);
+                makeFinalScoring();
+            }
+        });
+
+        Button resetButton = findViewById(R.id.reset);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetScore();
             }
         });
     }
 
     @Override
     public void onClick(View view) {
-        String stringTiles;
         int valueRoad, valueCity, valueCloister, valueFarmer;
         if (!isFinalScoring) {
             valueRoad = 1;
@@ -145,8 +143,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
     /**
+     * Set up and show pop up window for user input
      *
+     * @param currentPlayer: scoring player
+     * @param currentScore:  score of the player
+     * @param currentValue:  value of the current finished element (city, road, farmer)
      */
     private void setPopUpWindow(final TextView currentPlayer, final int currentScore, final int currentValue) {
         LayoutInflater popupTilesInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -154,6 +157,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final PopupWindow popupTilesWindow = new PopupWindow(popupTilesLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         final EditText userInput = (EditText) popupTilesLayout.findViewById(R.id.popup_number_of_tiles);
 
+        Button incrementButton = popupTilesLayout.findViewById(R.id.popup_increment);
+        incrementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tiles = userInput.getText().toString();
+                int score = convertStringToInt(tiles);
+                score += 1;
+                String incrementedScore = String.valueOf(score);
+                userInput.setText(incrementedScore);
+                userInput.setSelection(incrementedScore.length());
+            }
+        });
+        Button decrementButton = popupTilesLayout.findViewById(R.id.popup_decrement);
+        decrementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tiles = userInput.getText().toString();
+                int score = convertStringToInt(tiles);
+                if (score > 0) {
+                    score -= 1;
+                }
+                String decrementedScore = String.valueOf(score);
+                userInput.setText(decrementedScore);
+                userInput.setSelection(decrementedScore.length());
+            }
+        });
         // set ok Button onClickListener
         Button okButton = popupTilesLayout.findViewById(R.id.popup_ok_button);
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -162,17 +191,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // get Input = number of tiles
                 String tiles = userInput.getText().toString();
                 if (!tiles.isEmpty()) {
-                    int numberOfTiles = Integer.parseInt(tiles);
+                    int numberOfTiles = convertStringToInt(tiles);
                     int score = setScore(currentScore, numberOfTiles, currentValue);
-                    if (currentPlayer == p1ScoreTextView){
+                    if (currentPlayer == p1ScoreTextView) {
                         p1Score = score;
-                    }
-                    else if(currentPlayer == p2ScoreTextView){
+                    } else if (currentPlayer == p2ScoreTextView) {
                         p2Score = score;
                     }
                     displayScore(score, currentPlayer);
+                    popupTilesWindow.dismiss();
                 }
-                popupTilesWindow.dismiss();
             }
         });
 
@@ -188,6 +216,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         popupTilesWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0);
     }
 
+    private int convertStringToInt(String tilesString) {
+        if (tilesString.isEmpty()) {
+            return 0;
+        } else {
+            return Integer.parseInt(tilesString);
+        }
+    }
+
     private int setScore(int currentScore, int tiles, int value) {
         if (tiles >= 1) {
             return currentScore + (tiles * value);
@@ -196,5 +232,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void displayScore(int score, TextView scoreView) {
         scoreView.setText(String.valueOf(score));
+    }
+
+    private void resetScore() {
+        p1Score = 0;
+        p2Score = 0;
+        displayScore(p1Score, p1ScoreTextView);
+        displayScore(p2Score, p2ScoreTextView);
+        if (isFinalScoring) {
+            isFinalScoring = false;
+            // make farmer button visible
+            p1FarmerButton.setVisibility(View.INVISIBLE);
+            p2FarmerButton.setVisibility(View.INVISIBLE);
+            // change text of city and cloister buttons
+            p1CityButton.setText(R.string.city_and_shields);
+            p2CityButton.setText(R.string.city_and_shields);
+            p1CloisterButton.setText(R.string.cloister);
+            p2CloisterButton.setText(R.string.cloister);
+        }
+    }
+
+    private void makeFinalScoring() {
+        isFinalScoring = true;
+        // make farmer button visible
+        p1FarmerButton.setVisibility(View.VISIBLE);
+        p2FarmerButton.setVisibility(View.VISIBLE);
+        // change text of city and cloister buttons
+        p1CityButton.setText(R.string.city_and_shields_final);
+        p2CityButton.setText(R.string.city_and_shields_final);
+        p1CloisterButton.setText(R.string.cloister_final);
+        p2CloisterButton.setText(R.string.cloister_final);
     }
 }

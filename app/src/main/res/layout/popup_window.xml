@@ -2,43 +2,70 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/outer_padding"
-    android:background="@drawable/popup_background">
+    android:background="@drawable/popup_background"
+    android:padding="@dimen/outer_padding">
 
     <TextView
         android:id="@+id/popup_description"
         style="@style/MainButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sfjioafnsdifskfsdlf"
-        android:layout_marginBottom="@dimen/outer_padding"/>
+        android:layout_marginBottom="@dimen/outer_padding"
+        android:text="sfjioafnsdifskfsdlf" />
 
-    <EditText
-        android:id="@+id/popup_number_of_tiles"
-        style="@style/TilesScore"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/popup_selectTiles"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/popup_description" />
+        android:layout_below="@id/popup_description"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:id="@+id/popup_decrement"
+            style="@style/MainButtons"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/minus" />
+
+        <EditText
+            android:id="@+id/popup_number_of_tiles"
+            style="@style/TilesScore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:hint="1"/>
+
+        <Button
+            android:id="@+id/popup_increment"
+            style="@style/MainButtons"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/plus" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/popup_number_of_tiles"
+        android:layout_below="@id/popup_selectTiles"
         android:layout_marginTop="@dimen/outer_padding">
+
         <Button
             android:id="@+id/popup_cancel_button"
             style="@style/MainButtons"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/cancel" />
 
         <Button
             android:id="@+id/popup_ok_button"
             style="@style/MainButtons"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/ok" />
     </LinearLayout>
 

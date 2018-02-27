@@ -10,4 +10,6 @@
     <string name="cloister_final">Cloister(1x)</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
 </resources>
