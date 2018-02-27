@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LayoutInflater popupTilesInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View popupTilesLayout = popupTilesInflater.inflate(R.layout.popup_window, null);
         final PopupWindow popupTilesWindow = new PopupWindow(popupTilesLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupTilesWindow.setOutsideTouchable(true);
         final EditText userInput = popupTilesLayout.findViewById(R.id.popup_number_of_tiles);
 
         Button incrementButton = popupTilesLayout.findViewById(R.id.popup_increment);
