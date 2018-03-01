@@ -13,4 +13,11 @@
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="cancel_final_scoring">cancel Final Scoring</string>
+    <string name="select">Select</string>
+    <string name="next">Next</string>
+    <string name="black">Black</string>
+    <string name="green">Green</string>
+    <string name="red">Red</string>
+    <string name="blue">Blue</string>
+    <string name="yellow">Yellow</string>
 </resources>

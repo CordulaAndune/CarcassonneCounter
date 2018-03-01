@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,6 +41,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // get intent and data from StartActivity
+        Intent startIntent = getIntent();
+        int[] playerColors = startIntent.getIntArrayExtra("playerColors");
+
+        // set player pawns
+        ImageView p1_color = findViewById(R.id.p1_color);
+        p1_color.setImageResource(playerColors[0]);
+        ImageView p2_color = findViewById(R.id.p2_color);
+        p2_color.setImageResource(playerColors[1]);
 
         // get global variables
         p1ScoreTextView = findViewById(R.id.p1_score);

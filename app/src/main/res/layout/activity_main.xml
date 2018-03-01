@@ -23,10 +23,11 @@
             android:orientation="vertical"
             android:padding="@dimen/outer_padding">
 
-            <TextView
+            <ImageView
+                android:id="@+id/p1_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player 1" />
+                />
 
             <TextView
                 android:id="@+id/p1_score"
@@ -65,10 +66,11 @@
             android:orientation="vertical"
             android:padding="@dimen/outer_padding">
 
-            <TextView
+            <ImageView
+                android:id="@+id/p2_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player 2" />
+                />
 
             <TextView
                 android:id="@+id/p2_score"
