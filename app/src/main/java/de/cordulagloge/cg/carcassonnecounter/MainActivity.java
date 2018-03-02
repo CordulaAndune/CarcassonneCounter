@@ -1,9 +1,6 @@
 package de.cordulagloge.cg.carcassonnecounter;
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -12,12 +9,10 @@ import android.graphics.drawable.ShapeDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,7 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // get global variables
         p1ScoreTextView = findViewById(R.id.p1_score);
+        p1ScoreTextView.setTag(playerColors[0]);
         p2ScoreTextView = findViewById(R.id.p2_score);
+        p2ScoreTextView.setTag(playerColors[1]);
         rootLayout = findViewById(R.id.root_layout);
 
         //set Values
@@ -98,10 +95,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         finalScoringButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isFinalScoring){
+                if (isFinalScoring) {
                     cancelFinalScoring(false);
-                }
-                else {
+                } else {
                     makeFinalScoring();
                 }
             }
@@ -122,6 +118,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 undoScore();
             }
         });
+
+        Button endButton = findViewById(R.id.end_game);
+        endButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                endGame();
+            }
+        });
     }
 
     /**
@@ -131,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     @Override
     public void onClick(View view) {
+        String popupTitleText;
         int valueRoad, valueCity, valueCloister, valueFarmer;
         if (!isFinalScoring) {
             valueRoad = 1;
@@ -147,39 +152,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             // Player 1 scores
             case R.id.p1_road_button:
-                setPopUpWindow(p1ScoreTextView, p1Score, valueRoad);
+                popupTitleText = setTitleText(getString(R.string.popup_road, valueRoad));
+                setPopUpWindow(p1ScoreTextView, p1Score, valueRoad, popupTitleText);
                 break;
             case R.id.p1_city_button:
-                setPopUpWindow(p1ScoreTextView, p1Score, valueCity);
+                popupTitleText = setTitleText(getString(R.string.popup_city, valueCity));
+                setPopUpWindow(p1ScoreTextView, p1Score, valueCity, popupTitleText);
                 break;
             case R.id.p1_cloister_button:
+                popupTitleText = setTitleText(getString(R.string.popup_cloister, valueCloister));
                 if (isFinalScoring) {
-                    setPopUpWindow(p1ScoreTextView, p1Score, valueCloister);
+                    setPopUpWindow(p1ScoreTextView, p1Score, valueCloister, popupTitleText);
                 } else {
                     p1Score = setScore(p1Score, 1, valueCloister);
                     displayScore(p1Score, p1ScoreTextView);
                 }
                 break;
             case R.id.p1_farmer_button:
-                setPopUpWindow(p1ScoreTextView, p1Score, valueFarmer);
+                popupTitleText = setTitleText(getString(R.string.popup_farmer, valueFarmer));
+                setPopUpWindow(p1ScoreTextView, p1Score, valueFarmer, popupTitleText);
                 break;
             // Player 2 scores
             case R.id.p2_road_button:
-                setPopUpWindow(p2ScoreTextView, p2Score, valueRoad);
+                popupTitleText = setTitleText(getString(R.string.popup_road, valueRoad));
+                setPopUpWindow(p2ScoreTextView, p2Score, valueRoad, popupTitleText);
                 break;
             case R.id.p2_city_button:
-                setPopUpWindow(p2ScoreTextView, p2Score, valueCity);
+                popupTitleText = setTitleText(getString(R.string.popup_city, valueCity));
+                setPopUpWindow(p2ScoreTextView, p2Score, valueCity, popupTitleText);
                 break;
             case R.id.p2_cloister_button:
+                popupTitleText = setTitleText(getString(R.string.popup_cloister, valueCloister));
                 if (isFinalScoring) {
-                    setPopUpWindow(p2ScoreTextView, p2Score, valueCloister);
+                    setPopUpWindow(p2ScoreTextView, p2Score, valueCloister, popupTitleText);
                 } else {
                     p2Score = setScore(p2Score, 1, valueCloister);
                     displayScore(p2Score, p2ScoreTextView);
                 }
                 break;
             case R.id.p2_farmer_button:
-                setPopUpWindow(p2ScoreTextView, p2Score, valueFarmer);
+                popupTitleText = setTitleText(getString(R.string.popup_farmer, valueFarmer));
+                setPopUpWindow(p2ScoreTextView, p2Score, valueFarmer, popupTitleText);
                 break;
         }
     }
@@ -191,12 +204,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param currentScore:  score of the player
      * @param currentValue:  value of the current finished element (city, road, farmer)
      */
-    private void setPopUpWindow(final TextView currentPlayer, final int currentScore, final int currentValue) {
+    private void setPopUpWindow(final TextView currentPlayer, final int currentScore, final int currentValue, String popupTitleText) {
         LayoutInflater popupTilesInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View popupTilesLayout = popupTilesInflater.inflate(R.layout.popup_window, null);
+        final View popupTilesLayout = popupTilesInflater.inflate(R.layout.popup_window, rootLayout);
         final PopupWindow popupTilesWindow = new PopupWindow(popupTilesLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupTilesWindow.setOutsideTouchable(true);
+
         final EditText userInput = popupTilesLayout.findViewById(R.id.popup_number_of_tiles);
+        // set Description Text in popup window
+        TextView popupDescription = popupTilesLayout.findViewById(R.id.popup_description);
+        popupDescription.setText(popupTitleText);
+        int playerColor = (int) currentPlayer.getTag();
+        popupDescription.setCompoundDrawablesWithIntrinsicBounds(playerColor, 0, 0, 0);
 
         Button incrementButton = popupTilesLayout.findViewById(R.id.popup_increment);
         incrementButton.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 String tiles = userInput.getText().toString();
                 int score = convertStringToInt(tiles);
-                if (score > 0) {
+                if (score > 1) {
                     score -= 1;
                 }
                 String decrementedScore = String.valueOf(score);
@@ -272,11 +291,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
+     * set text for the popup title
+     *
+     * @param value: finished object and its multiplier
+     * @return
+     */
+    private String setTitleText(String value) {
+        StringBuilder titleText = new StringBuilder();
+        if (isFinalScoring) {
+            titleText.append("Final scoring:\nScores  ");
+        } else {
+            titleText.append("Scores ");
+        }
+        titleText.append(value);
+        return titleText.toString();
+    }
+
+    /**
      * Add points to current Score
      *
      * @param currentScore: old score of the current player
-     * @param tiles: quantity of tiles
-     * @param value: value of each tile, depends on which type was finished
+     * @param tiles:        quantity of tiles
+     * @param value:        value of each tile, depends on which type was finished
      * @return new score
      */
     private int setScore(int currentScore, int tiles, int value) {
@@ -290,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Display player's score
      *
-     * @param score: current score which should be displayed
+     * @param score:     current score which should be displayed
      * @param scoreView: Score TextView of the current player
      */
     private void displayScore(int score, TextView scoreView) {
@@ -335,18 +371,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // make farmer button visible
         p1FarmerButton.setVisibility(View.VISIBLE);
         p2FarmerButton.setVisibility(View.VISIBLE);
-        // change text of city and cloister buttons
-        p1CityButton.setText(R.string.city_and_shields_final);
-        p2CityButton.setText(R.string.city_and_shields_final);
-        p1CloisterButton.setText(R.string.cloister_final);
-        p2CloisterButton.setText(R.string.cloister_final);
     }
 
     /**
      * Cancel final scoring and return to normal scoring
+     *
      * @param isReset: are teh scores reseted (true) or only the final scoring cancelled (false)
      */
-    private void cancelFinalScoring(Boolean isReset){
+    private void cancelFinalScoring(Boolean isReset) {
         isFinalScoring = false;
         // change finalScoring button to normal
         finalScoringButton.setText(R.string.final_scoring);
@@ -355,12 +387,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // make farmer button visible
         p1FarmerButton.setVisibility(View.INVISIBLE);
         p2FarmerButton.setVisibility(View.INVISIBLE);
-        // change text of city and cloister buttons
-        p1CityButton.setText(R.string.city_and_shields);
-        p2CityButton.setText(R.string.city_and_shields);
-        p1CloisterButton.setText(R.string.cloister);
-        p2CloisterButton.setText(R.string.cloister);
-        if (!isReset){
+        if (!isReset) {
             p1Score = beforeFinalScore[0];
             p2Score = beforeFinalScore[1];
             displayScore(p1Score, p1ScoreTextView);
@@ -368,19 +395,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void changeBackgroundColor(Drawable background, int idColor){
+    /**
+     * change background color of buttons
+     *
+     * @param background: .xml which color should be changed
+     * @param idColor:    new color
+     */
+    private void changeBackgroundColor(Drawable background, int idColor) {
         if (background instanceof ShapeDrawable) {
             // cast to 'ShapeDrawable'
             ShapeDrawable shapeDrawable = (ShapeDrawable) background;
-            shapeDrawable.getPaint().setColor(ContextCompat.getColor(this,idColor));
+            shapeDrawable.getPaint().setColor(ContextCompat.getColor(this, idColor));
         } else if (background instanceof GradientDrawable) {
             // cast to 'GradientDrawable'
             GradientDrawable gradientDrawable = (GradientDrawable) background;
-            gradientDrawable.setColor(ContextCompat.getColor(this,idColor));
+            gradientDrawable.setColor(ContextCompat.getColor(this, idColor));
         } else if (background instanceof ColorDrawable) {
             // alpha value may need to be set again after this call
             ColorDrawable colorDrawable = (ColorDrawable) background;
-            colorDrawable.setColor(ContextCompat.getColor(this,idColor));
+            colorDrawable.setColor(ContextCompat.getColor(this, idColor));
         }
+    }
+
+    private void endGame(){
+        // TODO: Show winner -> popup: shows winner and cancel or new game button
+
     }
 }

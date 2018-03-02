@@ -49,7 +49,7 @@
             <Button
                 android:id="@+id/p1_farmer_button"
                 style="@style/MainButtons"
-                android:text="Farmer (3x)"
+                android:text="@string/farmer"
                 android:visibility="invisible"/>
 
             <Button
@@ -92,7 +92,7 @@
             <Button
                 android:id="@+id/p2_farmer_button"
                 style="@style/MainButtons"
-                android:text="Farmer (3x)"
+                android:text="@string/farmer"
                 android:visibility="invisible"/>
 
             <Button
@@ -124,4 +124,11 @@
         android:layout_toLeftOf="@id/final_scoring"
         android:layout_centerHorizontal="true"
         android:text="@string/undo" />
+
+    <Button
+        android:id="@+id/end_game"
+        style="@style/MainButtons"
+        android:layout_below="@id/final_scoring"
+        android:layout_centerHorizontal="true"
+        android:text="@string/end_game" />
 </RelativeLayout>

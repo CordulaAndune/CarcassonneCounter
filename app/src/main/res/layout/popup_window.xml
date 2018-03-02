@@ -8,7 +8,7 @@
     <TextView
         style="@style/PopupTextStyle"
         android:id="@+id/popup_description"
-        android:text="sfjioafnsdifskfsdlf" />
+        android:text="" />
 
     <LinearLayout
         android:id="@+id/popup_selectTiles"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:hint="1"/>
+            android:text="@string/one"/>
 
         <Button
             android:id="@+id/popup_increment"
