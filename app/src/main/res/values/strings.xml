@@ -22,9 +22,13 @@
     <string name="zero">0</string>
     <string name="one">1</string>
     <string name="farmer">Farmer</string>
-    <string name="popup_road">road (<xliff:g id="multiplier">%d</xliff:g>x)</string>
-    <string name="popup_city">city and shields (<xliff:g id="multiplier">%d</xliff:g>x)</string>
-    <string name="popup_farmer">cities for your farmer(<xliff:g id="multiplier">%d</xliff:g>x)</string>
-    <string name="popup_cloister">cloister (<xliff:g id="multiplier">%d</xliff:g>x)</string>
+    <string name="popup_road">road (<xliff:g id="multiplier" example="1">%d</xliff:g>x)</string>
+    <string name="popup_city">city and shields (<xliff:g id="multiplier" example="1">%d</xliff:g>x)</string>
+    <string name="popup_farmer">cities for your farmer(<xliff:g id="multiplier" example="1">%d</xliff:g>x)</string>
+    <string name="popup_cloister">cloister (<xliff:g id="multiplier" example="1">%d</xliff:g>x)</string>
     <string name="end_game">End game</string>
+    <string name="start_new_game">Start new game</string>
+    <string name="winner_pawn">Winner pawn</string>
+    <string name="wins">wins with <xliff:g id="score" example="55">%d</xliff:g> points</string>
+    <string name="tie">Tie! You have both <xliff:g id="score" example="55">%d</xliff:g> points</string>
 </resources>

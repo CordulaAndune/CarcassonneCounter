@@ -39,7 +39,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         colorDictionary.put(R.id.yellow, R.drawable.ic_pawn_yellow_24dp);
 
         titleText = findViewById(R.id.start_title);
-        currentPlayer = 1;
+
 
         // set onclicklistener for buttons
         ImageButton blackButton = findViewById(R.id.black);
@@ -52,6 +52,25 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         blueButton.setOnClickListener(this);
         ImageButton yellowButton = findViewById(R.id.yellow);
         yellowButton.setOnClickListener(this);
+
+        if (savedInstanceState != null){
+            currentPlayer = savedInstanceState.getInt("currentPlayer");
+            selectedColors = savedInstanceState.getIntArray("selectedColors");
+            if (currentPlayer == 2){
+                int index = colorDictionary.indexOfValue(selectedColors[0]);
+                setPlayer2Selection(findViewById(colorDictionary.keyAt(index)));
+            }
+        }
+        else{
+            currentPlayer = 1;
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("currentPlayer", currentPlayer);
+        savedInstanceState.putIntArray("selectedColors", selectedColors);
     }
 
     @Override
