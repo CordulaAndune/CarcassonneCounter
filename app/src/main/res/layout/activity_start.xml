@@ -1,60 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/meadow"
     android:orientation="vertical"
     android:padding="@dimen/outer_padding"
     tools:context="de.cordulagloge.cg.carcassonnecounter.StartActivity">
 
-    <TextView
-        android:id="@+id/start_title"
-        style="@style/ScoreStyle"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Player 1 select Color:" />
+        android:layout_marginBottom="@dimen/outer_padding"
+        android:adjustViewBounds="true"
+        android:src="@drawable/carcasonne" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:orientation="vertical"
+        android:layout_centerInParent="true"  >
 
-        <ImageButton
-            android:id="@+id/black"
-            style="@style/ColorButtonLayout"
-            android:contentDescription="@string/black"
-            android:src="@drawable/ic_pawn_black_24dp" />
+        <TextView
+            android:id="@+id/start_title"
+            style="@style/StartTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/player_1_select_your_color" />
 
-        <ImageButton
-            android:id="@+id/red"
-            style="@style/ColorButtonLayout"
-            android:contentDescription="@string/red"
-            android:src="@drawable/ic_pawn_red_24dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
-        <ImageButton
-            android:id="@+id/green"
-            style="@style/ColorButtonLayout"
-            android:contentDescription="@string/green"
-            android:src="@drawable/ic_pawn_green_24dp" />
+            <ImageButton
+                android:id="@+id/black"
+                style="@style/ColorButtonLayout"
+                android:contentDescription="@string/black"
+                android:src="@drawable/ic_pawn_black_24dp" />
+
+            <ImageButton
+                android:id="@+id/red"
+                style="@style/ColorButtonLayout"
+                android:contentDescription="@string/red"
+                android:src="@drawable/ic_pawn_red_24dp" />
+
+            <ImageButton
+                android:id="@+id/green"
+                style="@style/ColorButtonLayout"
+                android:contentDescription="@string/green"
+                android:src="@drawable/ic_pawn_green_24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/blue"
+                style="@style/ColorButtonLayout"
+                android:contentDescription="@string/blue"
+                android:src="@drawable/ic_pawn_blue_24dp" />
+
+            <ImageButton
+                android:id="@+id/yellow"
+                style="@style/ColorButtonLayout"
+                android:contentDescription="@string/yellow"
+                android:src="@drawable/ic_pawn_yellow_24dp" />
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <ImageButton
-            android:id="@+id/blue"
-            style="@style/ColorButtonLayout"
-            android:contentDescription="@string/blue"
-            android:src="@drawable/ic_pawn_blue_24dp" />
-
-        <ImageButton
-            android:id="@+id/yellow"
-            style="@style/ColorButtonLayout"
-            android:contentDescription="@string/yellow"
-            android:src="@drawable/ic_pawn_yellow_24dp" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

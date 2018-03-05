@@ -31,4 +31,5 @@
     <string name="winner_pawn">Winner pawn</string>
     <string name="wins">wins with <xliff:g id="score" example="55">%d</xliff:g> points</string>
     <string name="tie">Tie! You have both <xliff:g id="score" example="55">%d</xliff:g> points</string>
+    <string name="player_1_select_your_color">Player 1 select your color:</string>
 </resources>

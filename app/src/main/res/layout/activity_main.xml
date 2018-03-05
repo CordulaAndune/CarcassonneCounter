@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#558b2f"
+    android:background="@drawable/meadow"
     android:gravity="center_horizontal"
     tools:context="de.cordulagloge.cg.carcassonnecounter.MainActivity">
     
@@ -39,7 +39,7 @@
             <Button
                 android:id="@+id/p1_road_button"
                 style="@style/MainButtons"
-                android:text="@string/road"/>
+                android:text="@string/road" />
 
             <Button
                 android:id="@+id/p1_city_button"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -427,17 +428,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param idColor:    new color
      */
     private void changeBackgroundColor(Drawable background, int idColor) {
-        if (background instanceof ShapeDrawable) {
+        LayerDrawable layerDrawable = (LayerDrawable) background;
+        Drawable buttonForeground = layerDrawable.findDrawableByLayerId(R.id.button_foreground);
+        if (buttonForeground instanceof ShapeDrawable) {
             // cast to 'ShapeDrawable'
-            ShapeDrawable shapeDrawable = (ShapeDrawable) background;
+            ShapeDrawable shapeDrawable = (ShapeDrawable) buttonForeground;
             shapeDrawable.getPaint().setColor(ContextCompat.getColor(this, idColor));
-        } else if (background instanceof GradientDrawable) {
+        } else if (buttonForeground instanceof GradientDrawable) {
             // cast to 'GradientDrawable'
-            GradientDrawable gradientDrawable = (GradientDrawable) background;
+            GradientDrawable gradientDrawable = (GradientDrawable) buttonForeground;
             gradientDrawable.setColor(ContextCompat.getColor(this, idColor));
-        } else if (background instanceof ColorDrawable) {
+        } else if (buttonForeground instanceof ColorDrawable) {
             // alpha value may need to be set again after this call
-            ColorDrawable colorDrawable = (ColorDrawable) background;
+            ColorDrawable colorDrawable = (ColorDrawable) buttonForeground;
             colorDrawable.setColor(ContextCompat.getColor(this, idColor));
         }
     }
