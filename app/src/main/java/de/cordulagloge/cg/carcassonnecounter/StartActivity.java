@@ -32,11 +32,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         // set sparseIntArray to refer button id to selected color
         colorDictionary = new SparseIntArray();
-        colorDictionary.put(R.id.black, R.drawable.ic_pawn_black_24dp);
-        colorDictionary.put(R.id.blue, R.drawable.ic_pawn_blue_24dp);
-        colorDictionary.put(R.id.red, R.drawable.ic_pawn_red_24dp);
-        colorDictionary.put(R.id.green, R.drawable.ic_pawn_green_24dp);
-        colorDictionary.put(R.id.yellow, R.drawable.ic_pawn_yellow_24dp);
+        colorDictionary.put(R.id.black, R.drawable.meeple_black);
+        colorDictionary.put(R.id.blue, R.drawable.meeple_blue);
+        colorDictionary.put(R.id.red, R.drawable.meeple_red);
+        colorDictionary.put(R.id.green, R.drawable.meeple_green);
+        colorDictionary.put(R.id.yellow, R.drawable.meeple);
 
         titleText = findViewById(R.id.start_title);
 

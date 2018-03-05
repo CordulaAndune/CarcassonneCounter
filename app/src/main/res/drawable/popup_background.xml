@@ -13,7 +13,7 @@ android:top="4dp">
 android:bottom="4dp"
 android:right="4dp">
 <shape>
-    <solid android:color="@color/colorPrimary" />
+    <solid android:color="@color/colorAccent" />
     <corners android:radius="5dp" />
 </shape>
 </item>

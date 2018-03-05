@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int[] beforeFinalScore;
     private int[] formerScores;
     private Boolean isFinalScoring;
-    private RelativeLayout rootLayout;
+    private ScrollView rootLayout;
     private int[] playerColors;
 
     @Override

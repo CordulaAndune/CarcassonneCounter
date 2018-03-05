@@ -1,134 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root_layout"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/meadow"
-    android:gravity="center_horizontal"
-    tools:context="de.cordulagloge.cg.carcassonnecounter.MainActivity">
-    
-    <LinearLayout
-        android:id="@+id/score_layout"
+    android:layout_height="wrap_content"
+    android:background="@drawable/meadow">
+
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/outer_padding"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal"
+        tools:context="de.cordulagloge.cg.carcassonnecounter.MainActivity">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/outer_padding">
+            android:id="@+id/score_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/outer_padding"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/p1_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/outer_padding">
 
-            <TextView
-                android:id="@+id/p1_score"
-                style="@style/ScoreStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="12" />
+                <ImageView
+                    android:id="@+id/p1_color"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    />
 
-            <Button
-                android:id="@+id/p1_road_button"
-                style="@style/MainButtons"
-                android:text="@string/road" />
+                <TextView
+                    android:id="@+id/p1_score"
+                    style="@style/ScoreStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12" />
 
-            <Button
-                android:id="@+id/p1_city_button"
-                style="@style/MainButtons"
-                android:text="@string/city_and_shields"/>
+                <Button
+                    android:id="@+id/p1_road_button"
+                    style="@style/MainButtons"
+                    android:text="@string/road" />
 
-            <Button
-                android:id="@+id/p1_farmer_button"
-                style="@style/MainButtons"
-                android:text="@string/farmer"
-                android:visibility="invisible"/>
+                <Button
+                    android:id="@+id/p1_city_button"
+                    style="@style/MainButtons"
+                    android:text="@string/city_and_shields" />
 
-            <Button
-                android:id="@+id/p1_cloister_button"
-                style="@style/MainButtons"
-                android:text="@string/cloister"/>
+                <Button
+                    android:id="@+id/p1_farmer_button"
+                    style="@style/MainButtons"
+                    android:text="@string/farmer"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/p1_cloister_button"
+                    style="@style/MainButtons"
+                    android:text="@string/cloister" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/outer_padding">
+
+                <ImageView
+                    android:id="@+id/p2_color"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/p2_score"
+                    style="@style/ScoreStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12" />
+
+                <Button
+                    android:id="@+id/p2_road_button"
+                    style="@style/MainButtons"
+                    android:text="@string/road" />
+
+                <Button
+                    android:id="@+id/p2_city_button"
+                    style="@style/MainButtons"
+                    android:text="@string/city_and_shields" />
+
+                <Button
+                    android:id="@+id/p2_farmer_button"
+                    style="@style/MainButtons"
+                    android:text="@string/farmer"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/p2_cloister_button"
+                    style="@style/MainButtons"
+                    android:text="@string/cloister" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/outer_padding">
+        <Button
+            android:id="@+id/final_scoring"
+            style="@style/MainButtons"
+            android:layout_below="@id/score_layout"
+            android:layout_centerHorizontal="true"
+            android:text="@string/final_scoring" />
 
-            <ImageView
-                android:id="@+id/p2_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+        <Button
+            android:id="@+id/reset"
+            style="@style/MainButtons"
+            android:layout_below="@id/score_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/final_scoring"
+            android:text="@string/reset" />
 
-            <TextView
-                android:id="@+id/p2_score"
-                style="@style/ScoreStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="12" />
+        <Button
+            android:id="@+id/undo"
+            style="@style/MainButtons"
+            android:layout_below="@id/score_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@id/final_scoring"
+            android:text="@string/undo" />
 
-            <Button
-                android:id="@+id/p2_road_button"
-                style="@style/MainButtons"
-                android:text="@string/road"/>
-
-            <Button
-                android:id="@+id/p2_city_button"
-                style="@style/MainButtons"
-                android:text="@string/city_and_shields"/>
-
-            <Button
-                android:id="@+id/p2_farmer_button"
-                style="@style/MainButtons"
-                android:text="@string/farmer"
-                android:visibility="invisible"/>
-
-            <Button
-                android:id="@+id/p2_cloister_button"
-                style="@style/MainButtons"
-                android:text="@string/cloister"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/final_scoring"
-        style="@style/MainButtons"
-        android:layout_below="@id/score_layout"
-        android:layout_centerHorizontal="true"
-        android:text="@string/final_scoring" />
-
-    <Button
-        android:id="@+id/reset"
-        style="@style/MainButtons"
-        android:layout_below="@id/score_layout"
-        android:layout_toRightOf="@id/final_scoring"
-        android:layout_centerHorizontal="true"
-        android:text="@string/reset" />
-
-    <Button
-        android:id="@+id/undo"
-        style="@style/MainButtons"
-        android:layout_below="@id/score_layout"
-        android:layout_toLeftOf="@id/final_scoring"
-        android:layout_centerHorizontal="true"
-        android:text="@string/undo" />
-
-    <Button
-        android:id="@+id/end_game"
-        style="@style/MainButtons"
-        android:layout_below="@id/final_scoring"
-        android:layout_centerHorizontal="true"
-        android:text="@string/end_game" />
-</RelativeLayout>
+        <Button
+            android:id="@+id/end_game"
+            style="@style/MainButtons"
+            android:layout_below="@id/final_scoring"
+            android:layout_centerHorizontal="true"
+            android:text="@string/end_game" />
+    </RelativeLayout>
+</ScrollView>

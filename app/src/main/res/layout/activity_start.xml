@@ -28,6 +28,7 @@
             style="@style/StartTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/player_1_select_your_color" />
 
         <LinearLayout
@@ -39,19 +40,19 @@
                 android:id="@+id/black"
                 style="@style/ColorButtonLayout"
                 android:contentDescription="@string/black"
-                android:src="@drawable/ic_pawn_black_24dp" />
+                android:src="@drawable/meeple_black" />
 
             <ImageButton
                 android:id="@+id/red"
                 style="@style/ColorButtonLayout"
                 android:contentDescription="@string/red"
-                android:src="@drawable/ic_pawn_red_24dp" />
+                android:src="@drawable/meeple_red" />
 
             <ImageButton
                 android:id="@+id/green"
                 style="@style/ColorButtonLayout"
                 android:contentDescription="@string/green"
-                android:src="@drawable/ic_pawn_green_24dp" />
+                android:src="@drawable/meeple_green" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,13 +64,13 @@
                 android:id="@+id/blue"
                 style="@style/ColorButtonLayout"
                 android:contentDescription="@string/blue"
-                android:src="@drawable/ic_pawn_blue_24dp" />
+                android:src="@drawable/meeple_blue" />
 
             <ImageButton
                 android:id="@+id/yellow"
                 style="@style/ColorButtonLayout"
                 android:contentDescription="@string/yellow"
-                android:src="@drawable/ic_pawn_yellow_24dp" />
+                android:src="@drawable/meeple" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
