@@ -216,14 +216,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final View popupTilesLayout = popupTilesInflater.inflate(R.layout.popup_window, null);
         final PopupWindow popupTilesWindow = new PopupWindow(popupTilesLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupTilesWindow.setOutsideTouchable(true);
-
         final EditText userInput = popupTilesLayout.findViewById(R.id.popup_number_of_tiles);
         // set Description Text in popup window
         TextView popupDescription = popupTilesLayout.findViewById(R.id.popup_description);
         popupDescription.setText(popupTitleText);
         int playerColor = (int) currentPlayer.getTag();
         popupDescription.setCompoundDrawablesWithIntrinsicBounds(playerColor, 0, 0, 0);
-
         Button incrementButton = popupTilesLayout.findViewById(R.id.popup_increment);
         incrementButton.setOnClickListener(new View.OnClickListener() {
             @Override
