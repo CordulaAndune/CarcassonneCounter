@@ -31,7 +31,7 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
         <item name="android:drawablePadding">@dimen/buttonPadding</item>
         <item name="android:layout_margin">@dimen/outer_padding</item>
     </style>
@@ -86,5 +86,4 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_margin">@dimen/colorButtonMargin</item>
     </style>
-
 </resources>

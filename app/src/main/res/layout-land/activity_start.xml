@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/meadow"
+    android:orientation="vertical"
+    android:padding="@dimen/outer_padding"
+    tools:context="de.cordulagloge.cg.carcassonnecounter.StartActivity">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:layout_marginBottom="@dimen/outer_padding"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center"
+        android:src="@drawable/carcasonne"
+        android:contentDescription="@string/carcassonne"/>
+
+        <TextView
+            android:id="@+id/start_title"
+            style="@style/StartTextStyle"
+            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:text="@string/player_1_select_your_color" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/black"
+                style="@style/ColorButtonLayout"
+                android:contentDescription="@string/black"
+                android:src="@drawable/meeple_black" />
+
+            <ImageButton
+                android:id="@+id/red"
+                style="@style/ColorButtonLayout"
+                android:contentDescription="@string/red"
+                android:src="@drawable/meeple_red" />
+
+            <ImageButton
+                android:id="@+id/green"
+                style="@style/ColorButtonLayout"
+                android:contentDescription="@string/green"
+                android:src="@drawable/meeple_green" />
+
+            <ImageButton
+                android:id="@+id/blue"
+                style="@style/ColorButtonLayout"
+                android:contentDescription="@string/blue"
+                android:src="@drawable/meeple_blue" />
+
+            <ImageButton
+                android:id="@+id/yellow"
+                style="@style/ColorButtonLayout"
+                android:contentDescription="@string/yellow"
+                android:src="@drawable/meeple" />
+
+    </LinearLayout>
+</LinearLayout>
