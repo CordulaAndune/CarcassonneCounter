@@ -10,23 +10,23 @@
                 android:width="5dp"
                 android:color="@color/colorButtonShadow" />
             <corners android:radius="3dp" />
-
         </shape>
     </item>
-    <item android:id="@+id/button_foreground"
-    android:bottom="2dp"
-    android:right="2dp">
-    <shape>
-        <solid android:color="@color/colorButton" />
-        <stroke
-            android:width="3dp"
-            android:color="@color/colorButtonStroke" />
-        <corners android:radius="3dp" />
-        <padding
-            android:bottom="@dimen/buttonPadding"
-            android:left="@dimen/buttonPadding"
-            android:right="@dimen/buttonPadding"
-            android:top="@dimen/buttonPadding" />
-    </shape>
-</item>
+    <item
+        android:id="@+id/button_foreground"
+        android:bottom="2dp"
+        android:right="2dp">
+        <shape>
+            <solid android:color="@color/colorButton" />
+            <stroke
+                android:width="3dp"
+                android:color="@color/colorButtonStroke" />
+            <corners android:radius="3dp" />
+            <padding
+                android:bottom="@dimen/buttonPadding"
+                android:left="@dimen/buttonPadding"
+                android:right="@dimen/buttonPadding"
+                android:top="@dimen/buttonPadding" />
+        </shape>
+    </item>
 </layer-list>

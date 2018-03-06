@@ -1,25 +1,17 @@
 package de.cordulagloge.cg.carcassonnecounter;
 
 import android.content.Intent;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseIntArray;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
     int currentPlayer;
     TextView titleText;
-    int p1_color;
     SparseIntArray colorDictionary;
     int[] selectedColors;
 
@@ -27,9 +19,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
         selectedColors = new int[2];
-
         // set sparseIntArray to refer button id to selected color
         colorDictionary = new SparseIntArray();
         colorDictionary.put(R.id.black, R.drawable.meeple_black);
@@ -37,11 +27,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         colorDictionary.put(R.id.red, R.drawable.meeple_red);
         colorDictionary.put(R.id.green, R.drawable.meeple_green);
         colorDictionary.put(R.id.yellow, R.drawable.meeple);
-
         titleText = findViewById(R.id.start_title);
-
-
-        // set onclicklistener for buttons
+        // set onClickListener for buttons
         ImageButton blackButton = findViewById(R.id.black);
         blackButton.setOnClickListener(this);
         ImageButton redButton = findViewById(R.id.red);
@@ -52,7 +39,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         blueButton.setOnClickListener(this);
         ImageButton yellowButton = findViewById(R.id.yellow);
         yellowButton.setOnClickListener(this);
-
         if (savedInstanceState != null){
             currentPlayer = savedInstanceState.getInt("currentPlayer");
             selectedColors = savedInstanceState.getIntArray("selectedColors");
@@ -85,11 +71,18 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * change to player 2 and hide player 1 color
+     * @param selectedColor player 1 color
+     */
     private void setPlayer2Selection(View selectedColor) {
-        titleText.setText("Player 2 select your color");
+        titleText.setText(R.string.player_2_select_color);
         selectedColor.setVisibility(View.GONE);
     }
 
+    /**
+     * start main Activity and counter
+     */
     private void goToMainActivity(){
         Intent mainActivityIntent = new Intent(this, MainActivity.class);
         mainActivityIntent.putExtra("playerColors", selectedColors);

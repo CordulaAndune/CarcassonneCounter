@@ -6,7 +6,6 @@
     <string name="road">Road</string>
     <string name="cloister">Cloister</string>
     <string name="city_and_shields">City and Shields</string>
-
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="minus">-</string>
@@ -32,4 +31,8 @@
     <string name="wins">wins with <xliff:g id="score" example="55">%d</xliff:g> points</string>
     <string name="tie">Tie! You have both <xliff:g id="score" example="55">%d</xliff:g> points</string>
     <string name="player_1_select_your_color">Player 1 select your color:</string>
+    <string name="player_2_select_color">Player 2 select your color</string>
+    <string name="player_1">Player 1</string>
+    <string name="player_2">Player 2</string>
+    <string name="carcassonne">Carcassonne</string>
 </resources>

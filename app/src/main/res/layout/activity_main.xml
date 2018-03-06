@@ -9,7 +9,6 @@
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         tools:context="de.cordulagloge.cg.carcassonnecounter.MainActivity">
 
         <LinearLayout
@@ -17,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/outer_padding"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -29,9 +29,10 @@
 
                 <ImageView
                     android:id="@+id/p1_color"
-                    android:layout_width="48dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    />
+                    android:src="@drawable/meeple"
+                    android:contentDescription="@string/player_1" />
 
                 <TextView
                     android:id="@+id/p1_score"
@@ -42,24 +43,24 @@
 
                 <Button
                     android:id="@+id/p1_road_button"
-                    style="@style/MainButtons"
+                    style="@style/MainButtons.Counter"
                     android:text="@string/road" />
 
                 <Button
                     android:id="@+id/p1_city_button"
-                    style="@style/MainButtons"
+                    style="@style/MainButtons.Counter"
                     android:text="@string/city_and_shields" />
 
                 <Button
-                    android:id="@+id/p1_farmer_button"
-                    style="@style/MainButtons"
-                    android:text="@string/farmer"
-                    android:visibility="invisible" />
+                    android:id="@+id/p1_cloister_button"
+                    style="@style/MainButtons.Counter"
+                    android:text="@string/cloister" />
 
                 <Button
-                    android:id="@+id/p1_cloister_button"
-                    style="@style/MainButtons"
-                    android:text="@string/cloister" />
+                    android:id="@+id/p1_farmer_button"
+                    style="@style/MainButtons.Counter"
+                    android:text="@string/farmer"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -72,49 +73,50 @@
 
                 <ImageView
                     android:id="@+id/p2_color"
-                    android:layout_width="48dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/player_2" />
 
                 <TextView
                     android:id="@+id/p2_score"
                     style="@style/ScoreStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12" />
+                    android:text="" />
 
                 <Button
                     android:id="@+id/p2_road_button"
-                    style="@style/MainButtons"
+                    style="@style/MainButtons.Counter"
                     android:text="@string/road" />
 
                 <Button
                     android:id="@+id/p2_city_button"
-                    style="@style/MainButtons"
+                    style="@style/MainButtons.Counter"
                     android:text="@string/city_and_shields" />
 
                 <Button
-                    android:id="@+id/p2_farmer_button"
-                    style="@style/MainButtons"
-                    android:text="@string/farmer"
-                    android:visibility="invisible" />
+                    android:id="@+id/p2_cloister_button"
+                    style="@style/MainButtons.Counter"
+                    android:text="@string/cloister" />
 
                 <Button
-                    android:id="@+id/p2_cloister_button"
-                    style="@style/MainButtons"
-                    android:text="@string/cloister" />
+                    android:id="@+id/p2_farmer_button"
+                    style="@style/MainButtons.Counter"
+                    android:text="@string/farmer"
+                    android:visibility="invisible" />
             </LinearLayout>
         </LinearLayout>
 
         <Button
             android:id="@+id/final_scoring"
-            style="@style/MainButtons"
+            style="@style/MainButtons.Controller"
             android:layout_below="@id/score_layout"
             android:layout_centerHorizontal="true"
             android:text="@string/final_scoring" />
 
         <Button
             android:id="@+id/reset"
-            style="@style/MainButtons"
+            style="@style/MainButtons.Controller"
             android:layout_below="@id/score_layout"
             android:layout_centerHorizontal="true"
             android:layout_toRightOf="@id/final_scoring"
@@ -122,7 +124,7 @@
 
         <Button
             android:id="@+id/undo"
-            style="@style/MainButtons"
+            style="@style/MainButtons.Controller"
             android:layout_below="@id/score_layout"
             android:layout_centerHorizontal="true"
             android:layout_toLeftOf="@id/final_scoring"
@@ -130,7 +132,7 @@
 
         <Button
             android:id="@+id/end_game"
-            style="@style/MainButtons"
+            style="@style/MainButtons.Controller"
             android:layout_below="@id/final_scoring"
             android:layout_centerHorizontal="true"
             android:text="@string/end_game" />

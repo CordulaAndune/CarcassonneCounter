@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -39,53 +38,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // get intent and data from StartActivity
         Intent startIntent = getIntent();
         playerColors = startIntent.getIntArrayExtra("playerColors");
-
         // set player pawns
         ImageView p1_color = findViewById(R.id.p1_color);
         p1_color.setImageResource(playerColors[0]);
         ImageView p2_color = findViewById(R.id.p2_color);
         p2_color.setImageResource(playerColors[1]);
-
         // get global variables
         p1ScoreTextView = findViewById(R.id.p1_score);
         p1ScoreTextView.setTag(playerColors[0]);
         p2ScoreTextView = findViewById(R.id.p2_score);
         p2ScoreTextView.setTag(playerColors[1]);
         rootLayout = findViewById(R.id.root_layout);
-
         beforeFinalScore = new int[2];
         formerScores = new int[2];
-
         // Buttons Player 1
         Button p1RoadButton = findViewById(R.id.p1_road_button);
         p1RoadButton.setOnClickListener(this);
-
         Button p1CityButton = findViewById(R.id.p1_city_button);
         p1CityButton.setOnClickListener(this);
-
         Button p1CloisterButton = findViewById(R.id.p1_cloister_button);
         p1CloisterButton.setOnClickListener(this);
-
         p1FarmerButton = findViewById(R.id.p1_farmer_button);
         p1FarmerButton.setOnClickListener(this);
-
         // Buttons Player 2
         Button p2RoadButton = findViewById(R.id.p2_road_button);
         p2RoadButton.setOnClickListener(this);
-
         Button p2CityButton = findViewById(R.id.p2_city_button);
         p2CityButton.setOnClickListener(this);
-
         Button p2CloisterButton = findViewById(R.id.p2_cloister_button);
         p2CloisterButton.setOnClickListener(this);
-
         p2FarmerButton = findViewById(R.id.p2_farmer_button);
         p2FarmerButton.setOnClickListener(this);
-
         // Set onclicklistener for final Scoring button
         finalScoringButton = findViewById(R.id.final_scoring);
         finalScoringButton.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-
         Button resetButton = findViewById(R.id.reset);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 resetScore();
             }
         });
-
         Button undoButton = findViewById(R.id.undo);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 undoScore();
             }
         });
-
         Button endButton = findViewById(R.id.end_game);
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,37 +105,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 endGame();
             }
         });
-
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             p1Score = savedInstanceState.getInt("p1Score");
             p2Score = savedInstanceState.getInt("p2Score");
             isFinalScoring = savedInstanceState.getBoolean("isFinalScoring");
-            if (isFinalScoring){
+            if (isFinalScoring) {
                 makeFinalScoring();
             }
             formerScores = savedInstanceState.getIntArray("formerScores");
             beforeFinalScore = savedInstanceState.getIntArray("beforeFinalScore");
-        }
-        else {
+        } else {
             //set Values
             p1Score = 0;
             p2Score = 0;
             isFinalScoring = false;
         }
-
         displayScore(p1Score, p1ScoreTextView);
         displayScore(p2Score, p2ScoreTextView);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState){
+    public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         changeBackgroundColor(getResources().getDrawable(R.drawable.main_buttons_normal), R.color.colorButton);
-        savedInstanceState.putInt("p1Score",p1Score);
-        savedInstanceState.putInt("p2Score",p2Score);
-        savedInstanceState.putBoolean("isFinalScoring",isFinalScoring);
-        savedInstanceState.putIntArray("formerScores",formerScores);
-        savedInstanceState.putIntArray("beforeFinalScore",beforeFinalScore);
+        savedInstanceState.putInt("p1Score", p1Score);
+        savedInstanceState.putInt("p2Score", p2Score);
+        savedInstanceState.putBoolean("isFinalScoring", isFinalScoring);
+        savedInstanceState.putIntArray("formerScores", formerScores);
+        savedInstanceState.putIntArray("beforeFinalScore", beforeFinalScore);
     }
 
     /**
@@ -290,7 +270,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-
         // Set cancel button onCLickListener
         Button cancelButton = popupTilesLayout.findViewById(R.id.popup_cancel_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -449,24 +428,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * End the game and show winner
      */
-    private void endGame(){
+    private void endGame() {
         int[] winner = findWinner();
         changeBackgroundColor(getResources().getDrawable(R.drawable.main_buttons_normal), R.color.colorButton);
         LayoutInflater popupWinnerInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popupWinnerLayout = popupWinnerInflater.inflate(R.layout.popup_winner, null);
         final PopupWindow popupWinner = new PopupWindow(popupWinnerLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWinner.setOutsideTouchable(true);
-
         ImageView winnerImage = popupWinnerLayout.findViewById(R.id.winner_image);
-        TextView  winnerText = popupWinnerLayout.findViewById(R.id.popup_description);
+        TextView winnerText = popupWinnerLayout.findViewById(R.id.popup_description);
         if (winner[0] != 0) {
             winnerImage.setImageResource(winner[0]);
             winnerText.setText(getString(R.string.wins, winner[1]));
-        }
-        else {
+        } else {
             winnerText.setText(getString(R.string.tie, winner[1]));
         }
-
         Button okButton = popupWinnerLayout.findViewById(R.id.popup_ok_button);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -491,14 +467,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      *
      * @return winner and winner score
      */
-    private int[] findWinner(){
-        if (p1Score > p2Score){
+    private int[] findWinner() {
+        if (p1Score > p2Score) {
             return new int[]{playerColors[0], p1Score};
-        }
-        else if(p2Score > p1Score){
+        } else if (p2Score > p1Score) {
             return new int[]{playerColors[1], p2Score};
-        }
-        else {
+        } else {
             return new int[]{0, p1Score};
         }
     }
