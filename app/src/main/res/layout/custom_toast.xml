@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popup_background"
+    android:alpha="0.7"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/buttonsmallPadding">
+
+    <TextView
+        android:id="@+id/popup_description"
+        style="@style/PopupTextStyle"
+        android:gravity="center"
+        android:text="" />
+
+</LinearLayout>

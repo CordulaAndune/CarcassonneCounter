@@ -20,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button finalScoringButton;
     private int p1Score, p2Score;
     private int[] beforeFinalScore;
-    private int[] formerScores;
+    private ArrayList<Integer> p1FormerScores;
+    private ArrayList<Integer> p2FormerScores;
     private Boolean isFinalScoring;
     private ScrollView rootLayout;
     private int[] playerColors;
@@ -53,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         p2ScoreTextView.setTag(playerColors[1]);
         rootLayout = findViewById(R.id.root_layout);
         beforeFinalScore = new int[2];
-        formerScores = new int[2];
+        p1FormerScores = new ArrayList<>();
+        p2FormerScores = new ArrayList<>();
         // Buttons Player 1
         Button p1RoadButton = findViewById(R.id.p1_road_button);
         p1RoadButton.setOnClickListener(this);
@@ -112,7 +117,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (isFinalScoring) {
                 makeFinalScoring();
             }
-            formerScores = savedInstanceState.getIntArray("formerScores");
+            p1FormerScores = savedInstanceState.getIntegerArrayList("p1FormerScores");
+            p2FormerScores = savedInstanceState.getIntegerArrayList("p2FormerScores");
             beforeFinalScore = savedInstanceState.getIntArray("beforeFinalScore");
         } else {
             //set Values
@@ -131,7 +137,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         savedInstanceState.putInt("p1Score", p1Score);
         savedInstanceState.putInt("p2Score", p2Score);
         savedInstanceState.putBoolean("isFinalScoring", isFinalScoring);
-        savedInstanceState.putIntArray("formerScores", formerScores);
+        savedInstanceState.putIntegerArrayList("p1FormerScores", p1FormerScores);
+        savedInstanceState.putIntegerArrayList("p2FormerScores", p2FormerScores);
         savedInstanceState.putIntArray("beforeFinalScore", beforeFinalScore);
     }
 
@@ -320,8 +327,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @return new score
      */
     private int setScore(int currentScore, int tiles, int value) {
-        formerScores[0] = p1Score;
-        formerScores[1] = p2Score;
+        p1FormerScores.add(p1Score);
+        p2FormerScores.add(p2Score);
         if (tiles >= 1) {
             return currentScore + (tiles * value);
         } else return currentScore;
@@ -355,10 +362,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Undo last scoring step
      */
     private void undoScore() {
-        p1Score = formerScores[0];
-        p2Score = formerScores[1];
-        displayScore(p1Score, p1ScoreTextView);
-        displayScore(p2Score, p2ScoreTextView);
+        int sizeFormerScores = p1FormerScores.size();
+        if (sizeFormerScores > 0) {
+            p1Score = p1FormerScores.get(sizeFormerScores - 1);
+            p2Score = p2FormerScores.get(sizeFormerScores - 1);
+            p1FormerScores.remove(sizeFormerScores - 1);
+            p2FormerScores.remove(sizeFormerScores - 1);
+            displayScore(p1Score, p1ScoreTextView);
+            displayScore(p2Score, p2ScoreTextView);
+        }
+        else {
+            showToast(getString(R.string.no_undo));
+        }
+    }
+
+    private void showToast(String toastText){
+        LayoutInflater toastInflater = getLayoutInflater();
+        View toastLayout = toastInflater.inflate(R.layout.custom_toast,null);
+
+        TextView toastTextView = toastLayout.findViewById(R.id.popup_description);
+        toastTextView.setText(toastText);
+
+        Toast toastChangedScore = new Toast(getApplicationContext());
+
+        toastChangedScore.setDuration(Toast.LENGTH_SHORT);
+        toastChangedScore.setView(toastLayout);
+
+        toastChangedScore.show();
     }
 
     /**
