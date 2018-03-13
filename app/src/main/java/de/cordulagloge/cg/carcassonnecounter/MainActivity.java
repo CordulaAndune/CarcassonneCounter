@@ -26,11 +26,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView p1ScoreTextView, p2ScoreTextView;
+    private TextView p1ScoreTextView;
+    private TextView p2ScoreTextView;
     private Button p1FarmerButton;
     private Button p2FarmerButton;
     private Button finalScoringButton;
-    private int p1Score, p2Score;
+    private int p1Score;
+    private int p2Score;
     private int[] beforeFinalScore;
     private ArrayList<Integer> p1FormerScores;
     private ArrayList<Integer> p2FormerScores;
@@ -250,6 +252,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (score > 1) {
                     score -= 1;
                 }
+                else {
+                    showToast(getString(R.string.less_then_1));
+                }
                 String decrementedScore = String.valueOf(score);
                 userInput.setText(decrementedScore);
                 userInput.setSelection(decrementedScore.length());
@@ -272,6 +277,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     displayScore(score, currentPlayer);
                     popupTilesWindow.dismiss();
+                }
+                else {
+
+                    showToast(getString(R.string.less_then_1));
                 }
             }
         });
@@ -370,24 +379,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             p2FormerScores.remove(sizeFormerScores - 1);
             displayScore(p1Score, p1ScoreTextView);
             displayScore(p2Score, p2ScoreTextView);
+            showToast(getString(R.string.undo_last_step));
         }
         else {
             showToast(getString(R.string.no_undo));
         }
     }
 
+    /**
+     * show custom toast
+     * @param toastText text which showed be showed in the toast
+     */
     private void showToast(String toastText){
         LayoutInflater toastInflater = getLayoutInflater();
         View toastLayout = toastInflater.inflate(R.layout.custom_toast,null);
-
         TextView toastTextView = toastLayout.findViewById(R.id.popup_description);
         toastTextView.setText(toastText);
-
         Toast toastChangedScore = new Toast(getApplicationContext());
-
         toastChangedScore.setDuration(Toast.LENGTH_SHORT);
         toastChangedScore.setView(toastLayout);
-
         toastChangedScore.show();
     }
 

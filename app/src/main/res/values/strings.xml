@@ -36,4 +36,6 @@
     <string name="player_2">Player 2</string>
     <string name="carcassonne">Carcassonne</string>
     <string name="no_undo">There are no steps to undo!</string>
+    <string name="less_then_1">You cannot score less then one tile</string>
+    <string name="undo_last_step">Undo last scoring step...</string>
 </resources>
